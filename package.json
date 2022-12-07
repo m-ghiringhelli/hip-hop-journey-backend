@@ -1,0 +1,39 @@
+{
+  "name": "hip-hop-journey-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-ghiringhelli/hip-hop-journey-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/eslint-parser": "^7.18.2",
+    "@babel/eslint-plugin": "^7.17.7",
+    "@babel/plugin-syntax-class-properties": "^7.12.13",
+    "@types/jest": "^28.1.1",
+    "@types/pg": "^8.6.5",
+    "eslint": "^8.17.0",
+    "jest": "^28.1.0",
+    "nodemon": "^2.0.18",
+    "prettier": "^2.6.2",
+    "supertest": "^6.2.3"
+  },
+  "homepage": "https://github.com/m-ghiringhelli/hip-hop-journey-backend#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "cross-env": "^7.0.3",
+    "cross-fetch": "^3.1.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.3"
+  }
+}
