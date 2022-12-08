@@ -27,6 +27,6 @@ describe('user tests', () => {
     });
     const userCheck = await request(app).get(`/api/v1/users/${res.body.id}`);
     expect(userCheck.status).toBe(200);
-    expect(userCheck).toEqual(user);
+    expect(userCheck.body).toEqual(user);
   });
 });
