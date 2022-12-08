@@ -11,7 +11,7 @@ describe('user routes', () => {
     pool.end();
   });
 
-  it('test test', () => {
+  it('POST to users should create a user', () => {
     expect(1).toEqual(1);
   })
 });
