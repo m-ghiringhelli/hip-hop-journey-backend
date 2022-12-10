@@ -41,7 +41,13 @@ describe('user tests', () => {
     expect(userCheck.body).toEqual(user);
   });
 
-  // it.only('POST to /sessions should login a user / attach a cookie', async () => {
-  //   const [agent] = await registerAndLogin();
-  // });
+  it('GET to /users/me should return current user when authed', async () => {
+    const loggedOutRes = await request(app).get('/api/v1/users/me');
+    expect(loggedOutRes.status).toBe(401);
+
+    const [agent, user] = await registerAndLogin();
+    const loggedInRes = await request(agent).get('/api/v1/users/me');
+    expect(loggedInRes.status).toBe(200);
+    expect(loggedInRes.body).toEqual(user);
+  })
 });

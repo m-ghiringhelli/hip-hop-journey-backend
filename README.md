@@ -6,9 +6,9 @@ PLAN
   - Rather than spending a ton of time figuring out how to get cookie li 
     should just wait for authenticate to work and check that — that will
     verify login works
+- Write authenticate test
 - Route to get current user
   - GET /users/me
-- Write authenticate test
 - Create authenticate middleware
 - Add current_album (skip ahead to seeding album table)
   - Test to get logged in user's current album
