@@ -2,10 +2,21 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const UserService = require('../lib/services/UserService');
 
 const mockUser = {
   email: 'test@test.com',
   password: '123456',
+}
+
+const registerAndLogin = async (userProps = {}) => {
+  const agent = request.agent(app);
+  const password = userProps.password ?? mockUser.password;
+  const user = await UserService.create({ ...mockUser, ...userProps });
+
+  const { email } = user;
+  await agent.post('/api/v1/users/sessions').send({ email, password });
+  return [agent, user];
 }
 
 describe('user tests', () => {
@@ -17,7 +28,7 @@ describe('user tests', () => {
     pool.end();
   });
 
-  it('POST to users should create a user', async () => {
+  it('POST to /users should create a user', async () => {
     const res = await request(app).post('/api/v1/users').send(mockUser);
     expect(res.status).toBe(200);
     const user = res.body;
@@ -29,4 +40,8 @@ describe('user tests', () => {
     expect(userCheck.status).toBe(200);
     expect(userCheck.body).toEqual(user);
   });
+
+  // it.only('POST to /sessions should login a user / attach a cookie', async () => {
+  //   const [agent] = await registerAndLogin();
+  // });
 });
