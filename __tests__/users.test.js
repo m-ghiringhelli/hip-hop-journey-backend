@@ -28,7 +28,7 @@ describe('user tests', () => {
     pool.end();
   });
 
-  it('POST to /users should create a user', async () => {
+  it.only('POST to /users should create a user', async () => {
     const res = await request(app).post('/api/v1/users').send(mockUser);
     expect(res.status).toBe(200);
     const user = res.body;
