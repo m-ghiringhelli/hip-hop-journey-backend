@@ -12,6 +12,6 @@ describe('album tests', () => {
   });
 
   it.only('GET from /albums should return the list of albums', async () => {
-
+  // TODO 3/14: write test to verify albums fetch correctly, write routes until test passes
   });
 });
