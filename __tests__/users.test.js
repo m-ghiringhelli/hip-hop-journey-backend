@@ -23,12 +23,8 @@ describe('user tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
-
-  afterAll(() => {
-    pool.end();
-  });
-
-  it.only('POST to /users should create a user', async () => {
+  
+  it('POST to /users should create a user', async () => {
     const res = await request(app).post('/api/v1/users').send(mockUser);
     expect(res.status).toBe(200);
     const user = res.body;
@@ -40,14 +36,23 @@ describe('user tests', () => {
     expect(userCheck.status).toBe(200);
     expect(userCheck.body).toEqual(user);
   });
-
+  
   it('GET to /users/me should return current user when authed', async () => {
     const loggedOutRes = await request(app).get('/api/v1/users/me');
     expect(loggedOutRes.status).toBe(401);
-
+    
     const [agent, user] = await registerAndLogin();
-    const loggedInRes = await request(agent).get('/api/v1/users/me');
+    const loggedInRes = await agent.get('/api/v1/users/me');
     expect(loggedInRes.status).toBe(200);
-    expect(loggedInRes.body).toEqual(user);
+    expect(loggedInRes.body).toEqual({
+      id: expect.any(String),
+      email: mockUser.email,
+      exp: expect.any(Number),
+      iat: expect.any(Number),
+    });
   })
+
+  afterAll(() => {
+    pool.end();
+  });
 });

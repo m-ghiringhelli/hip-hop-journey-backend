@@ -1,22 +1,22 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS albums;
 
-CREATE TABLE users (
-	id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  email VARCHAR NOT NULL UNIQUE,
-  password_hash VARCHAR NOT NULL,
-  current_album VARCHAR NOT NULL DEFAULT 1,
-  FOREIGN KEY (current_album) REFERENCES albums(id)
-);
-
 CREATE TABLE albums (
-  id BIGINT GENERATED ALWAYS AS IDENTITY,
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   artist VARCHAR NOT NULL,
   title VARCHAR NOT NULL,
   released VARCHAR NOT NULL,
   location VARCHAR NOT NULL,
   record_company VARCHAR DEFAULT NULL,
   region VARCHAR NOT NULL
+);
+
+CREATE TABLE users (
+	id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  email VARCHAR NOT NULL UNIQUE,
+  password_hash VARCHAR NOT NULL,
+  current_album BIGINT NOT NULL DEFAULT 1,
+  FOREIGN KEY (current_album) REFERENCES albums(id)
 );
 
 INSERT INTO albums (artist, title, released, location, record_company, region) VALUES
