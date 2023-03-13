@@ -4,7 +4,9 @@ DROP TABLE IF EXISTS albums;
 CREATE TABLE users (
 	id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   email VARCHAR NOT NULL UNIQUE,
-  password_hash VARCHAR NOT NULL
+  password_hash VARCHAR NOT NULL,
+  current_album VARCHAR NOT NULL DEFAULT 1,
+  FOREIGN KEY (current_album) REFERENCES albums(id)
 );
 
 CREATE TABLE albums (
