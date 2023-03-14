@@ -15,7 +15,7 @@ CREATE TABLE users (
 	id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   email VARCHAR NOT NULL UNIQUE,
   password_hash VARCHAR NOT NULL,
-  current_album BIGINT NOT NULL DEFAULT 1,
+  current_album BIGINT DEFAULT 1,
   FOREIGN KEY (current_album) REFERENCES albums(id)
 );
 

@@ -31,6 +31,7 @@ describe('user tests', () => {
     expect(user).toEqual({
       id: expect.any(String),
       email: mockUser.email,
+      currentAlbum: '1',
     });
     const userCheck = await request(app).get(`/api/v1/users/${res.body.id}`);
     expect(userCheck.status).toBe(200);
@@ -47,6 +48,7 @@ describe('user tests', () => {
     expect(loggedInRes.body).toEqual({
       id: expect.any(String),
       email: mockUser.email,
+      currentAlbum: '1',
       exp: expect.any(Number),
       iat: expect.any(Number),
     });
