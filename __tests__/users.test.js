@@ -54,6 +54,10 @@ describe('user tests', () => {
     });
   })
 
+  it('UPDATE to /users/me should update the current album for that user', async () => {
+    // TODO: write test to try updating current album then evaluating whether successful
+  });
+
   afterAll(() => {
     pool.end();
   });
