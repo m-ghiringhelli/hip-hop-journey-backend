@@ -62,11 +62,12 @@ describe('user tests', () => {
     const updatedUser = await agent
       .put(`/api/v1/users/${user.id}`)
       .send({ ...user, currentAlbum: '3'});
+    console.log('IN TEST: ', updatedUser.body);
     expect(updatedUser.status).toBe(200);
     expect(updatedUser.body.currentAlbum).toEqual('3');
     // try to update other user
     const deniedUser = await agent
-      .put('/api/v1/users/10')
+      .put('/api/v1/users/1')
       .send({ ...user, currentAlbum: '3'});
     expect(deniedUser.status).toBe(403);
   });

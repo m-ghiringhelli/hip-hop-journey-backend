@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS albums;
+DROP TABLE IF EXISTS albums CASCADE;
 
 CREATE TABLE albums (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -247,3 +247,6 @@ Mount Vernon, NY','','East'),
 ('Lil Wayne','Tha Carter 3','6/9/2008','New Orleans, LA','Cash Money Records, Universal Motown','South'),
 ('A.B.N','It Is What It Is','7/15/2008','Houston, TX','Rap-A-Lot Records','South'),
 ('Kanye West','808s & Heartbreak','11/24/2008','Chicago, IL','Roc-A-Fella, Def Jam','Midwest');
+
+INSERT INTO users (email, password_hash) VALUES
+('sample@sample.com', '123456');
