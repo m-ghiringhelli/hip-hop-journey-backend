@@ -56,6 +56,19 @@ describe('user tests', () => {
 
   it('UPDATE to /users/me should update the current album for that user', async () => {
     // TODO: write test to try updating current album then evaluating whether successful
+    // add a user
+    const [agent, user] = await registerAndLogin();
+    // send update to user
+    const updatedUser = await agent
+      .put(`/api/v1/users/${user.id}`)
+      .send({ ...user, currentAlbum: '3'});
+    expect(updatedUser.status).toBe(200);
+    expect(updatedUser.body.currentAlbum).toEqual('3');
+    // try to update other user
+    const deniedUser = await agent
+      .put('/api/v1/users/10')
+      .send({ ...user, currentAlbum: '3'});
+    expect(deniedUser.status).toBe(403);
   });
 
   afterAll(() => {
