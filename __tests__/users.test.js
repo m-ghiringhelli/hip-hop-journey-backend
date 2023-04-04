@@ -25,6 +25,7 @@ describe('user tests', () => {
   });
   
   it('POST to /users should create a user', async () => {
+    // put user in db
     const res = await request(app).post('/api/v1/users').send(mockUser);
     expect(res.status).toBe(200);
     const user = res.body;
@@ -33,16 +34,20 @@ describe('user tests', () => {
       email: mockUser.email,
       currentAlbum: '1',
     });
+    // verify user is in db
     const userCheck = await request(app).get(`/api/v1/users/${res.body.id}`);
     expect(userCheck.status).toBe(200);
     expect(userCheck.body).toEqual(user);
   });
   
   it('GET to /users/me should return current user when authed', async () => {
+    // check for user when not logged in (should fail)
     const loggedOutRes = await request(app).get('/api/v1/users/me');
     expect(loggedOutRes.status).toBe(401);
     
-    const [agent, user] = await registerAndLogin();
+
+    const [agent] = await registerAndLogin();
+    // check for logged in user
     const loggedInRes = await agent.get('/api/v1/users/me');
     expect(loggedInRes.status).toBe(200);
     expect(loggedInRes.body).toEqual({
@@ -54,18 +59,16 @@ describe('user tests', () => {
     });
   })
 
-  it('UPDATE to /users/me should update the current album for that user', async () => {
-    // TODO: write test to try updating current album then evaluating whether successful
+  it.only('UPDATE to /users/me should update the current album for that user', async () => {
     // add a user
     const [agent, user] = await registerAndLogin();
     // send update to user
     const updatedUser = await agent
       .put(`/api/v1/users/${user.id}`)
       .send({ ...user, currentAlbum: '3'});
-    console.log('IN TEST: ', updatedUser.body);
     expect(updatedUser.status).toBe(200);
     expect(updatedUser.body.currentAlbum).toEqual('3');
-    // try to update other user
+    // try to update other user, should fail
     const deniedUser = await agent
       .put('/api/v1/users/1')
       .send({ ...user, currentAlbum: '3'});
